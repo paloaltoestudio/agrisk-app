@@ -180,7 +180,7 @@ const ConsultarPuntaje = () => {
                         )}
 
                         { steps == 'step_2' && (
-                            <Paso_2 stepState={{steps, changeStep}} />
+                            <Paso_2 stepState={{steps, changeStep}} entries={{handleEntries}} />
                         )}
 
                         { steps == 'step_3' && (

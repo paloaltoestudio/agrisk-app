@@ -21,7 +21,7 @@ export default function Paso_2(props) {
                                                    <strong>1. ¿Qué densidad de siembra tiene la finca?</strong> <br/>
                                                    (Alto >5.000Pl/ha, Medio >3.000Pl/ha, Bajo el resto)
                                             </span>
-                                               <select id="tipo" name="" className="validate" required>
+                                               <select onChange={e => props.entries.handleEntries(e)} id="tipo" name="respuesta_1" className="validate" required>
                                                    <option value="" disabled>Escoje una opción</option>
                                                    <option value="Alto">Alto</option>
                                                    <option value="Medio">Medio</option>
@@ -34,7 +34,7 @@ export default function Paso_2(props) {
                                                    2.¿Qué porcentaje de la finca tiene el cultivo en renovación? <br/>
                                                   (Alto >40%, medio 20-40%, Bajo &#60;20%)
                                             </span>
-                                               <select id="tipo" name="" className="validate" required>
+                                               <select onChange={e => props.entries.handleEntries(e)} id="tipo" name="respuesta_2" className="validate" required>
                                                    <option value="" disabled>Escoje una opción</option>
                                                    <option value="Alto">Alto</option>
                                                    <option value="Medio">Medio</option>
@@ -46,7 +46,7 @@ export default function Paso_2(props) {
                                                <span>
                                                   3.¿Utiliza sistema de riego para la mayor parte del área cultivada?
                                             </span>
-                                               <select id="tipo" name="" className="validate" required>
+                                               <select onChange={e => props.entries.handleEntries(e)} id="tipo" name="respuesta_3" className="validate" required>
                                                    <option value="" disabled>Escoje una opción</option>
                                                    <option value="Siempre">Siempre</option>
                                                    <option value="Casi Siempre">Casi Siempre</option>
@@ -60,7 +60,7 @@ export default function Paso_2(props) {
                                                <span>
                                                   4.¿Cuál es el tipo de suelo que más abunda en el cultivo?
                                             </span>
-                                               <select id="tipo" name="" className="validate" required>
+                                               <select onChange={e => props.entries.handleEntries(e)} id="tipo" name="respuesta_4" className="validate" required>
                                                    <option value="" disabled>Escoje una opción</option>
                                                    <option value="Acrilloso">Acrilloso</option>
                                                    <option value="Franco Acrilloso">Franco Acrilloso</option>

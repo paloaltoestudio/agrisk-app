@@ -14,23 +14,29 @@ export default function Paso_1(props) {
                     <div className="row">
                     
                         <div className="input-field col s6">
-                            <select onChange={e => props.entries.handleEntries(e)} name="tipoCultivo" className="validate" required>
+                            <select onChange={e => props.entries.handleEntries(e)} name="in_id_sistema_productivo" className="validate" required>
                                 <option value="">Escoje una opción</option>
-                                <option value="Arroz">Arroz</option>
-                                <option value="Papa">Papa</option>
+                                <option value="1">Arroz</option>
+                                <option value="10">Banano</option>
                             </select>
                             <label>Tipo de Cultivo*</label>
                         </div>
+
                         <div className="input-field col s6">
-                            <select onChange={e => props.entries.handleEntries(e)} name="in_id_sistema_productivo" className="validate" required>
-                                <option value="">Escoje una opción</option>
-                                <option value="1">Arroz Secano</option>
-                                <option value="10">Arroz Riego</option>
-                            </select>
-                            <label>Sistema Productivo*</label>
+                            <label>Área de Cultivo* (en hectáreas)</label>
+                            <input onChange={e => props.entries.handleEntries(e)} name="in_area_cultivo" className="validate" required type="text"/>
                         </div>
-                        
-                        
+                    </div>
+
+                    <div className="row">
+                        <div className="input-field col s6">
+                            <label>Rendimiento*</label>
+                            <input onChange={e => props.entries.handleEntries(e)} name="in_rendimiento_cultivo" className="validate" required type="text"/>
+                        </div>
+                        <div className="input-field col s6">
+                            <label>Costo de Producción*</label>
+                            <input onChange={e => props.entries.handleEntries(e)} name="in_costos_produccion_cultivo" className="validate" required type="text"/>
+                        </div>
                     </div>
                     <div className="step-actions">
                         <button id='2' onClick={e => changeStep(e) } className="waves-effect waves-dark btn blue next-step">SIGUIENTE</button>
