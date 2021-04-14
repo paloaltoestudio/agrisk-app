@@ -3,6 +3,7 @@ import React, {useEffect, useContext} from 'react';
 export default function Paso_1(props) {
     const { steps, changeStep } = props.stepState;
 
+
     return (
         <div className="step">
             
@@ -18,6 +19,7 @@ export default function Paso_1(props) {
                                 <option value="">Escoje una opción</option>
                                 <option value="1">Arroz</option>
                                 <option value="10">Banano</option>
+                                <option value="12">Maíz</option>
                             </select>
                             <label>Tipo de Cultivo*</label>
                         </div>

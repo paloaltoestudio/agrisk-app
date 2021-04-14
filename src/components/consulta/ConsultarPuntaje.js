@@ -17,7 +17,7 @@ const ConsultarPuntaje = () => {
     const { steps, changeStep } = useContext(StepsContext);
 
     //Get entries context
-    const { handleEntries } = useContext(EntriesContext);
+    const { entries, handleEntries } = useContext(EntriesContext);
 
     const sign = () => {
         var myHeaders = new Headers();
@@ -180,11 +180,11 @@ const ConsultarPuntaje = () => {
                         )}
 
                         { steps == 'step_2' && (
-                            <Paso_2 stepState={{steps, changeStep}} entries={{handleEntries}} />
+                            <Paso_2 stepState={{steps, changeStep}} entries={{entries, handleEntries}} />
                         )}
 
                         { steps == 'step_3' && (
-                            <Paso_3 stepState={{steps, changeStep}} />
+                            <Paso_3 stepState={{steps, changeStep}} entries={{entries, handleEntries}} />
                         )}
                         
                   </div>
