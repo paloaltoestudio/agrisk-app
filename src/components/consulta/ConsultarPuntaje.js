@@ -1,239 +1,197 @@
-import React, { Component } from 'react'
-import MStepper from 'materialize-stepper'
+import React, { useEffect, useState, useContext } from 'react';
+import M from 'materialize-css';
+import Paso_1 from './Paso_1';
+import Paso_2 from './Paso_2';
+import Paso_3 from './Paso_3';
+import Calificacion from './Calificacion';
+import { StepsContext } from '../contexts/StepsContext';
+import { EntriesContext } from '../contexts/EntriesContext';
 
 
-class ConsultarPuntaje extends Component {
+const ConsultarPuntaje = () => {
+    const [token, setToken] = useState('');
 
-    state = {
-        tipoCultivo: '',
-        sistemaProductivo: ''
+    const [session, setSession] = useState('');
+
+    // Get steps state from Steps Context
+    const { steps, changeStep } = useContext(StepsContext);
+
+    //Get entries context
+    const { handleEntries } = useContext(EntriesContext);
+
+    const sign = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        
+        var raw = JSON.stringify({
+          "email": "demos@agrisk.com.co",
+          "password": "Demos123!"
+        });
+        
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+        
+        fetch("https://pre-prod.agrisk.com.co/agriskapi/api/v1/Auth/SignIn", requestOptions)
+          .then(response => response.json())
+          .then(result => 
+            {
+                console.log(result.access_token);
+                setToken(result.access_token)
+            })
+          .catch(error => console.log('error', error));
+        
     }
     
-    componentDidMount(){
+    useEffect(() => {
+        if(token){
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", `Bearer ${token}`);
+    
+            myHeaders.append("Content-Type", "application/json");
 
-        
-        var stepper = document.querySelector('.stepper');
+            var raw = '';
 
-        
-        
-        var stepperInstace = new window.MStepper(stepper, {
-            // Default active step.
-            firstActive: 0,
-            // Allow navigation by clicking on the next and previous steps on linear steppers.
-            linearStepsNavigation: true,
-            // Auto focus on first input of each step.
-            autoFocusInput: false,
-            // Set if a loading screen will appear while feedbacks functions are running.
-            showFeedbackPreloader: true,
-            // Auto generation of a form around the stepper.
-            autoFormCreation: false,
-            // Function to be called everytime a nextstep occurs. It receives 2 arguments, in this sequece: stepperForm, activeStepContent.
-            validationFunction: defaultValidationFunction, // more about this default functions below
-            // Enable or disable navigation by clicking on step-titles
-            stepTitleNavigation: true,
-            // Preloader used when step is waiting for feedback function. If not defined, Materializecss spinner-blue-only will be used.
-            feedbackPreloader: '<div class="spinner-layer spinner-blue-only">...</div>'
-        })
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
 
-        function defaultValidationFunction (stepperForm, activeStepContent) {
-             var inputs = activeStepContent.querySelectorAll('input, textarea, select');
-             for (let i = 0; i < inputs.length; i++) if (!inputs[i].checkValidity()) return false;
-             return true;
+            fetch("https://pre-prod.agrisk.com.co/agriskapi/api/v1/Session/Create?idBook=01FM5IQQL6KHWFQWUFI5E3YK3H7B4N63I4&persistChanges\n=false", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                console.log(result.id);
+                setSession(result.id)
+            })
+            .catch(error => console.log('error', error));
         }
+        
+    }, [token])
 
-        const M = window.M;
-        var elems = document.querySelectorAll('select');
-        var instances = M.FormSelect.init(elems, {});
-    }
 
-    handleChange = (e) => {
-        this.setState({
-            [e.target.name] : e.target.value
-        })
-        console.log(this.state);
-    }
+    useEffect(() => {
+        if(session){
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
+        myHeaders.append("Content-Type", "application/json");
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(e);
-        console.log(this.state);
-    }
+        var raw = JSON.stringify([
+          {
+            "nombre": "in_id_vereda",
+            "valor": "05147008",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "in_id_sistema_productivo",
+            "valor": "10",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "in_rendimiento_cultivo",
+            "valor": "35",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "in_costos_produccion_cultivo",
+            "valor": "6200000",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "in_area_cultivo",
+            "valor": "100",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "respuesta_1",
+            "valor": "Sí",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "respuesta_2",
+            "valor": "Antena",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "respuesta_3",
+            "valor": "Siempre",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "respuesta_4",
+            "valor": "Casi siempre",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "respuesta_5",
+            "valor": "Reservorio",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "respuesta_6",
+            "valor": "Sí",
+            "posicionValor": 6
+          },
+          {
+            "nombre": "respuesta_7",
+            "valor": "Sí",
+            "posicionValor": 6
+          }
+        ]);
 
-    render() {
-        return (
-            <div className="section">
-                <header>
-                      <h1 className="center">CONSULTA EL PERFIL DEL PROYECTO</h1>
-                      <h2 className="center">EN 3 SIMPLES PASOS</h2>
-                </header>
+        var requestOptions = {
+          method: 'PUT',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
 
-                <div className="card pasos z-depth-3">
-                      <div className="card-content">
-                          {/* <form onSubmit={this.handleSubmit}> */}
-                              <ul className="stepper linear">
-                                 
-                                 <li className="step">
-                                    <div className="step-title waves-effect">Paso 1</div>
-                                    <div className="step-content">
-                                      
-                                      <h2>Información del cultivo</h2>
-                                      <form onSubmit={this.handleSubmit}>
-                                       <div className="row">
-                                       
-                                           <div className="input-field col s6">
-                                               <select id="tipo" name="tipoCultivo" className="validate" required onChange={this.handleChange}>
-                                                   <option value="" disabled selected>Escoje una opción</option>
-                                                   <option value="Arroz">Arroz</option>
-                                                   <option value="Papa">Papa</option>
-                                               </select>
-                                               <label>Tipo de Cultivo*</label>
-                                           </div>
-                                           <div className="input-field col s6">
-                                               <select id="tipo" name="sistemaProductivo" className="validate" required onChange={this.handleChange}>
-                                                   <option value="" disabled selected>Escoje una opción</option>
-                                                   <option value="Arroz Secano">Arroz Secano</option>
-                                                   <option value="Arroz Riego">Arroz Riego</option>
-                                               </select>
-                                               <label>Sistema Productivo*</label>
-                                           </div>
-                                           
-                                          
-                                       </div>
-                                       <div className="step-actions">
-                                          <button className="waves-effect waves-dark btn blue">Enviar</button>
-                                          <button className="waves-effect waves-dark btn blue next-step">SIGUIENTE</button>
-                                       </div>
-                                       </form>
-                                    </div>
-                                 </li>
-                                 
-                                 <li className="step">
-                                    <div className="step-title waves-effect">Paso 2</div>
-                                    <div className="step-content">
-                                      
-                                      <h2>Diagnóstico del cultivo</h2>
-                                      
-                                       <div className="row">
-                                           
-                                           <div className="input-field col s12">
-                                               <h3>Seleccione cada tipo de Diagnóstico para responder las preguntas correspondientes</h3>
-                                           </div>
-                                           
-                                           <div className="input-field col s6">
-                                               <span>
-                                                   <strong>1. ¿Qué densidad de siembra tiene la finca?</strong> <br/>
-                                                   (Alto >5.000Pl/ha, Medio >3.000Pl/ha, Bajo el resto)
-                                            </span>
-                                               <select id="tipo" name="" className="validate" required>
-                                                   <option value="" disabled selected>Escoje una opción</option>
-                                                   <option value="Alto">Alto</option>
-                                                   <option value="Medio">Medio</option>
-                                                   <option value="Bajo">Bajo</option>
-                                               </select>
-                                           </div>
-                                           
-                                           <div className="input-field col s6">
-                                               <span>
-                                                   2.¿Qué porcentaje de la finca tiene el cultivo en renovación? <br/>
-                                                  (Alto >40%, medio 20-40%, Bajo &#60;20%)
-                                            </span>
-                                               <select id="tipo" name="" className="validate" required>
-                                                   <option value="" disabled selected>Escoje una opción</option>
-                                                   <option value="Alto">Alto</option>
-                                                   <option value="Medio">Medio</option>
-                                                   <option value="Bajo">Bajo</option>
-                                               </select>
-                                           </div>
-                                           
-                                           <div className="input-field col s6">
-                                               <span>
-                                                  3.¿Utiliza sistema de riego para la mayor parte del área cultivada?
-                                            </span>
-                                               <select id="tipo" name="" className="validate" required>
-                                                   <option value="" disabled selected>Escoje una opción</option>
-                                                   <option value="Siempre">Siempre</option>
-                                                   <option value="Casi Siempre">Casi Siempre</option>
-                                                   <option value="Algunas Veces">Algunas Veces</option>
-                                                   <option value="Casi Nunca">Casi Nunca</option>
-                                                   <option value="Nunca">Nunca</option>
-                                               </select>
-                                           </div>
-                                           
-                                           <div className="input-field col s6">
-                                               <span>
-                                                  4.¿Cuál es el tipo de suelo que más abunda en el cultivo?
-                                            </span>
-                                               <select id="tipo" name="" className="validate" required>
-                                                   <option value="" disabled selected>Escoje una opción</option>
-                                                   <option value="Acrilloso">Acrilloso</option>
-                                                   <option value="Franco Acrilloso">Franco Acrilloso</option>
-                                                   <option value="Franco">Franco</option>
-                                                   <option value="Franco Arenoso">Franco Arenoso</option>
-                                                   <option value="Arenoso">Arenoso</option>
-                                               </select>
-                                           </div>
-                                       </div>
-                                       <div className="step-actions">
-                                          <button className="waves-effect waves-dark btn blue next-step" type="submit">SIGUIENTE</button>
-                                       </div>
-                                    </div>
-                                 </li>
-                                 
-                                 <li className="step">
-                                    <div className="step-title waves-effect">Paso 3</div>
-                                    <div className="step-content">
-                                       
-                                       <h2>Ubicación del cultivo</h2>
-                                        
-                                        <div className="row">
-                                          
-                                           <div className="input-field col s4">
-                                               <select id="tipo" name="" className="validate" required>
-                                                   <option value="" disabled selected>Escoje una opción</option>
-                                                   <option value="Colombia">Colombia</option>
-                                               </select>
-                                               <label>País*</label>
-                                           </div>
-                                           <div className="input-field col s4">
-                                               <select id="tipo" name="" className="validate" required>
-                                                   <option value="" disabled selected>Escoje una opción</option>
-                                                   <option value="Antioquia">Antioquia</option>
-                                               </select>
-                                               <label>Departamento*</label>
-                                           </div>
-                                           <div className="input-field col s4">
-                                               <select id="tipo" name="" className="validate" required>
-                                                   <option value="" disabled selected>Escoje una opción</option>
-                                                   <option value="Concordia">Concordia</option>
-                                               </select>
-                                               <label>Municipio*</label>
-                                           </div>
-                                           <div className="input-field col s4">
-                                               <input id="vereda" type="text" name="" className="validate" required />
-                                               <label htmlFor="vereda">Vereda</label>
-                                           </div>
-                                           <div className="input-field col s8">
-                                               <input id="direccion" type="text" name="" className="validate" required />
-                                               <label htmlFor="direccion">Dirección</label>
-                                           </div>
-                                        </div>
+        fetch(`https://pre-prod.agrisk.com.co/agriskapi/api/v1/ModelScoring/UpdateEntries?idBook=01FM5IQQL6KHWFQWUFI5E3YK3H7B4N63I4&sessionId=${session}&range=A1%3AI21&nameSheet=Entradas`, requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
 
-                                       
-                                       
-                                       <div className="step-actions">
-                                          <button className="waves-effect waves-dark btn-flat previous-step">ATRÁS</button>
-                                          <button className="waves-effect waves-dark btn blue next-step">SIGUIENTE</button>
-                                       </div>
-                                    </div>
-                                 </li>
-                                 
-                              </ul>
-                          {/* </form> */}
-                      </div>
+        }
+    }, [session, token])
+
+    
+
+    useEffect(() => {
+        M.AutoInit();
+    }, [steps])
+
+    
+
+
+    return (
+        <div className="section">
+            <header>
+                  <h1 className="center">CONSULTA EL PERFIL DEL PROYECTO</h1>
+                  <h2 className="center">EN 3 SIMPLES PASOS</h2>
+            </header>
+            <div className="card pasos z-depth-3">
+                  <div className="card-content">
+                        { steps == 'step_1' && (
+                            <Paso_1 stepState={{steps, changeStep}} sign={sign} entries={{handleEntries}} />
+                        )}
+
+                        { steps == 'step_2' && (
+                            <Paso_2 stepState={{steps, changeStep}} />
+                        )}
+
+                        { steps == 'step_3' && (
+                            <Paso_3 stepState={{steps, changeStep}} />
+                        )}
+                        
                   </div>
-            </div>
-        )
-    }
+              </div>
+        </div>
+    )
 }
+
 
 export default ConsultarPuntaje

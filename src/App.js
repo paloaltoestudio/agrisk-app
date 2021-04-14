@@ -8,37 +8,45 @@ import Puntaje from './components/consulta/Puntaje'
 import SideNav from './components/layout/SideNav';
 import Footer from './components/layout/Footer';
 import './style.scss';
+import StepsContextProvider from './components/contexts/StepsContext';
+import EntriesContextProvider from './components/contexts/EntriesContext';
 
 function App() {
   return (
     <BrowserRouter>
-    <div className="App">
-      
-      <div className="wrapper_row row">
-        <div className="sidebar_wrapper col s3">
-          <SideNav />
-        </div>
+    <StepsContextProvider>
+      <EntriesContextProvider>
+        <div className="App">
+          
+          <div className="wrapper_row row">
+            <div className="sidebar_wrapper col s3">
+              <SideNav />
+            </div>
 
-        <div className="topnav_col col s9 offset-s3">
-          <div className="topnav_wrapper">
-            <TopNav/>
+            <div className="topnav_col col s9 offset-s3">
+              <div className="topnav_wrapper">
+                <TopNav/>
+              </div>
+            </div>
+
+            
+            <div className="content_col col s9 offset-s3 grey lighten-5">
+              <div className="container-fluid">
+                <Route exact path="/" component={ConsultarPuntaje}/>
+                {/* <Route exact path="/" component={Puntaje} /> */}
+                <Route exact path="/historial" component={Historial}/>
+                <Route path="/reporte" component={Historial} />
+              </div>
+            </div>
+            
+
           </div>
+          
         </div>
-
-        <div className="content_col col s9 offset-s3 grey lighten-5">
-          <div className="container-fluid">
-            <Route exact path="/" component={ConsultarPuntaje}/>
-            {/* <Route exact path="/" component={Puntaje} /> */}
-            <Route exact path="/historial" component={Historial}/>
-            <Route path="/reporte" component={Historial} />
-          </div>
-        </div>
-
-      </div>
-      
-    </div>
 
     <Footer/>
+      </EntriesContextProvider>
+    </StepsContextProvider>
 
     </BrowserRouter>
   );
