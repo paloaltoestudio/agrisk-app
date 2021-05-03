@@ -3,10 +3,10 @@ import React, { createContext, useState } from 'react';
 export const StepsContext = createContext();
 
 const StepsContextProvider = props => {
-    const [steps, setSteps] = useState('step_1');
+    const [steps, setSteps] = useState('1');
 
-    const changeStep = el => {
-        setSteps(`step_${el.target.id}`);
+    const changeStep = id => {
+        setSteps(id);
     }
 
     return (

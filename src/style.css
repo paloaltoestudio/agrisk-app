@@ -6,7 +6,6 @@ body {
 .login {
   height: 100vh;
   width: 100%;
-  background: url("/images/login_bg.jpg") no-repeat;
   background-size: cover;
 }
 
@@ -189,7 +188,7 @@ body {
 }
 
 .content_col .section {
-  margin: 80px 0;
+  margin: 30px 0;
   min-height: calc(100vh - 160px);
 }
 
@@ -197,17 +196,17 @@ body {
   width: 100%;
   max-width: 900px;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 30px;
   border-radius: 20px;
 }
 
 .section header {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .section h1 {
   text-transform: uppercase;
-  font-size: 30px;
+  font-size: 24px;
   font-weight: bold;
   color: #0068B1;
   margin-bottom: 10px;
@@ -215,7 +214,7 @@ body {
 
 .section h2 {
   text-transform: uppercase;
-  font-size: 30px;
+  font-size: 24px;
   font-weight: lighter;
   color: #0068B1;
   margin-top: 0;
@@ -229,7 +228,7 @@ body {
 .pasos h2 {
   font-weight: bold;
   font-size: 20px;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 }
 
 .pasos h3 {
@@ -263,7 +262,6 @@ body {
 }
 
 .resultado_wrapper {
-  background: url("/images/resultado_bg.jpg") no-repeat;
   background-size: cover;
   padding: 10px 0;
 }
@@ -388,6 +386,140 @@ body {
 .historial tbody td a {
   text-decoration: underline;
   color: #0068B1;
+}
+
+.steps_list {
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.steps_list li {
+  margin: 0 10px;
+}
+
+.steps_list li span {
+  display: block;
+  background: #777;
+  color: #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+  margin: auto;
+  padding-top: 4px;
+}
+
+.steps_list li.active span {
+  background: #0068B1;
+}
+
+.loader {
+  text-align: center;
+}
+
+.score_wrapper p.title {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: #444;
+  margin-bottom: 30px;
+}
+
+.score_wrapper h3 {
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.score_wrapper .col {
+  text-align: center;
+}
+
+.score_wrapper .col img {
+  max-width: 100%;
+}
+
+.score_preview p.date {
+  margin-bottom: 20px;
+}
+
+.score_preview p.intro {
+  margin-bottom: 20px;
+}
+
+.score_preview p {
+  margin-bottom: 10px;
+}
+
+.score_preview h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.score_preview .chart {
+  margin-bottom: 20px;
+}
+
+.score_preview .question {
+  margin-bottom: 20px;
+}
+
+.score_preview p.score_text {
+  margin-top: 20px;
+}
+
+.score_preview .greetings {
+  margin-top: 40px;
+}
+
+.score_preview .greetings p {
+  margin-bottom: 5px;
+}
+
+.score_preview .greetings p strong {
+  font-weight: bold;
+}
+
+.score_content {
+  border: 2px solid transparent;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.score_content.score_green {
+  border-color: green;
+}
+
+.score_content.score_orange {
+  border-color: orange;
+}
+
+.score_content.score_red {
+  border-color: red;
+}
+
+.score h2 {
+  margin-bottom: 40px;
+}
+
+.score p {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.score p.score_green {
+  color: green;
+}
+
+.score p.score_orange {
+  color: orange;
+}
+
+.score p.score_red {
+  color: red;
 }
 
 footer {
