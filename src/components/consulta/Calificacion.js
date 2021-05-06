@@ -1,43 +1,10 @@
 import React, { useContext, useEffect, useState, createRef } from 'react'
 import { SignContext } from '../contexts/SignContext';
 import { motion } from 'framer-motion';
-import { Document, Page, Text, View, StyleSheet, PDFDownloadLink, Image } from '@react-pdf/renderer';
+import { jsPDF } from "jspdf";
 
-// Create styles
-const styles = StyleSheet.create({
-    page: {
-      display: 'flex',
-      flexDirection: 'column',
-      backgroundColor: '#fff'
-    },
-    section: {
-      margin: 10,
-      padding: 10,
-      flexGrow: 1
-    },
-    date: {
-        marginBottom: 20
-    },
-    intro: {
-        marginBottom: '20px'
-    },
-    title: {
-        marginTop: '20px',
-        marginBottom: '20px',
-        color: '#0068B1'
-    },
-    text: {
-        marginBottom: '10px'
-    },
-    chart: {
-        height: 200,
-        width: 150,
-        marginBottom: '20px'
-    }
-  });
 
 export default function Calificacion() {
-    const ref = createRef();
 
     const [scoreClass, setScoreClass] = useState('');
 
@@ -78,36 +45,41 @@ export default function Calificacion() {
         }
     }, [output_calificacion])
 
-    // Create Document Component
-    const MyDocument = () => (
+    const generatePDF = () => {
+        const doc = new jsPDF({
+            orientation: 'p',
+            unit: 'cm',
+            format: 'letter',
+            floatPrecision: 16 // or "smart", default is 16
+           });
+        
+        doc.setFontSize(12);
+        doc.text(finalDate, 2, 1);
 
-        imgData ? (
-            <Document>
-            <Page size="A4" style={styles.page}>
-                <View style={styles.date}>
-                    <Text>{finalDate}</Text>
-                </View>
-                <View style={styles.intro}>
-                    <Text>En Seguros SURA queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.</Text>
-                </View>
-                <View style={styles.title}>
-                    <Text style={styles.title}>Niveles de desarrollo por atributo</Text>
-                    {imgData && (
-                        <Image 
-                            style={styles.chart} 
-                            src={imgData
-                                ? `data:image/jpeg;base64,${imgData}`
-                                : 'http://localhost:3000/images/agrisk_logo.jpg'} />
-                    )}
-                </View>
-                <View style={styles.text}>
-                    <Text>{output_calificacion_aptitud.descriptor}</Text>
-                </View>
-            </Page>
-            </Document>
-        ) : ''
+        doc.text('En Seguros SURA queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.', 2, 2, {maxWidth: 16});
 
-    );
+        doc.text('Niveles de desarrollo por atributo', 2, 4);
+        doc.addImage(imgData, 'JPEG', 2, 4.5, 15, 9);
+        
+        doc.setTextColor(0, 0, 255);
+        doc.text('Aptitud', 2, 14);
+        doc.setTextColor(0, 0, 0)
+        doc.text(output_calificacion_aptitud.descriptor, 2, 14.5, {maxWidth: 16});
+
+        doc.text('Amenazas', 2, 15.5);
+        doc.text(output_calificacion_amenazas.descriptor, 2, 16, {maxWidth: 16});
+
+        doc.text('Rendimientos', 2, 16.5);
+        doc.text(output_calificacion_rendimiento.descriptor, 2, 17, {maxWidth: 16});
+
+        doc.text('Costos de producción', 2, 18);
+        doc.text(output_calificacion_costos.descriptor, 2, 18.5, {maxWidth: 16});
+        
+        doc.text('Conocimiento del cultivo', 2, 19.5);
+
+        doc.save("Calificación-de-riesgo.pdf");
+
+    }
 
     return (
         <div className="step">
@@ -142,29 +114,14 @@ export default function Calificacion() {
                             </motion.div>
                         )}
 
-                        {imgData && (
-                            <PDFDownloadLink
-                                document={<MyDocument/>}
-                                fileName="calificacion-de-riesgo.pdf"
-                                style={{
-                                    textDecoration: "none",
-                                    padding: "10px",
-                                    color: "#4a4a4a",
-                                    backgroundColor: "#f2f2f2",
-                                    border: "1px solid #4a4a4a"
-                                }}
-                            >
-                                Descargar PDF
-                            </PDFDownloadLink>  
-                        )}      
-
+                        <button className="waves-effect waves-dark btn blue" onClick={generatePDF}>Download</button>
                     </div>
                 </div>
             </div>
 
-            <MyDocument />
+            
 
-            <div ref={ref} className="score_preview">
+            <div className="score_preview">
                 <p className="date">
                     {finalDate}
                 </p>
