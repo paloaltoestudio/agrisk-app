@@ -3,9 +3,9 @@ import TopNav from './components/layout/TopNav';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Link} from 'react-router-dom'
 import ConsultarPuntaje from './components/consulta/ConsultarPuntaje';
+import Paso_3 from './components/consulta/Paso_3';
 import Calificacion from './components/consulta/Calificacion';
 import Historial from './components/Historial';
-import Puntaje from './components/consulta/Puntaje'
 import SideNav from './components/layout/SideNav';
 import Footer from './components/layout/Footer';
 import './style.scss';
@@ -36,7 +36,7 @@ function App() {
             <div className="content_col col s9 offset-s3 grey lighten-5">
               <div className="container-fluid">
                 <Route exact path="/" component={ConsultarPuntaje}/>
-                {/* <Route exact path="/" component={Puntaje} /> */}
+                <Route exact path="/paso3" component={Paso_3}/>
                 <Route exact path="/calificacion" component={Calificacion}/>
                 <Route exact path="/historial" component={Historial}/>
                 <Route path="/reporte" component={Historial} />

@@ -3,7 +3,7 @@ import Map from './Map';
 import { SignContext } from '../contexts/SignContext';
 
 export default function Paso_3(props) {
-    const { steps, changeStep } = props.stepState;
+    const { steps, changeStep } = props.stepState ? props.stepState : '3';
 
     const [loader, setLoader] = useState(false)
 
