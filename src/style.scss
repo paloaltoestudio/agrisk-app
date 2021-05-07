@@ -190,7 +190,7 @@ body {
 }
 
 .content_col {
-    
+    height: 100%;
     padding: 0 !important;
     
     .section {
@@ -461,7 +461,38 @@ body {
     }
 }
 
+.links {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    button {
+        margin: 0 10px;
+    }
+}
+
 .score_preview {
+    position: absolute;
+    top: -300px;
+    height: 70vh;
+    overflow: auto;
+    background: #fff;
+    padding: 40px 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 10000000;
+
+    span.close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+
+        &:hover {
+            color: #0068B1;
+        }
+    }
+
     p.date {
         margin-bottom: 20px;
     }
@@ -503,7 +534,7 @@ body {
 
 .score_content {
     border: 2px solid transparent;
-    padding: 20px;
+    padding: 37px 20px;
     border-radius: 20px;
 
     &.score_green {
