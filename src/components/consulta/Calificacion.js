@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { SignContext } from '../contexts/SignContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { jsPDF } from "jspdf";
+import imageToBase64 from 'image-to-base64/browser';
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export default function Calificacion() { 
 
@@ -159,111 +163,69 @@ export default function Calificacion() {
         )
     }
 
-    const generatePDF = () => {
+    const [header, setHeader] = useState();
+    const [footer, setFooter] = useState();
+    useEffect(() => {
+        const headerImg = './images/suraHeader.png';
+        const headerBase64 = async () => {
+            try {
+                const imgConvert = await imageToBase64(headerImg);
+                setHeader(imgConvert);
+    
+            } catch (error){
+                console.log(error)
+            }
+        }
 
-        const doc = new jsPDF({
-            orientation: 'p',
-            unit: 'cm',
-            format: 'letter',
-            floatPrecision: 16 // or "smart", default is 16
-        });
+        const footerImg = './images/suraFooter.png';
+        const footerBase64 = async () => {
+            try {
+                const imgConvert = await imageToBase64(footerImg);
+                setFooter(imgConvert);
+    
+            } catch (error){
+                console.log(error)
+            }
+        }
+        headerBase64();
+        footerBase64();
+    }, []);
 
-        const blue = [0, 104, 177];
-      
-        doc.setFont('Helvetica', 'Bold')
-        doc.setFontSize(10);
-        doc.text(finalDate, 2, 1);
+    const dd = {
+        pageSize: 'LETTER',
+        pageMargins: [ 30, 0, 30, 40 ],
+        header: {
+            image: `data:image/jpeg;base64,${header}`,
+            width: 600
+        },
+        content: [
+           
+            {
+                text: finalDate,
+                margin: [ 0, 180, 0, 10 ]
+            },
+            {
+                text: 'En Seguros SURA queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.',
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: 'Niveles de desarrollo por atributo',
+                color: '#0068B1',
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                image: `data:image/jpeg;base64,${imgData}`,
+                width: 400
+            }
+        ],
+        footer: {
+            image: `data:image/jpeg;base64,${footer}`,
+            width: 600
+        }
+    }
 
-        doc.setFont('Helvetica', '');
-        doc.getFontList();
-        doc.text('En Seguros SURA queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.', 2, 2, {maxWidth: 16});
-
-        doc.setTextColor(blue[0], blue[1], blue[2]);
-        doc.text('Niveles de desarrollo por atributo', 2, 4);
-        doc.addImage(imgData, 'JPEG', 2, 4.5, 15, 9);
-        
-        doc.setTextColor(blue[0], blue[1], blue[2]);
-        doc.text('Aptitud', 2, 14.5);
-        doc.setTextColor(0, 0, 0)
-        doc.text(output_calificacion_aptitud.descriptor, 2, 15, {maxWidth: 16});
-
-        doc.setTextColor(blue[0], blue[1], blue[2]);
-        doc.text('Amenazas', 2, 17);
-        doc.setTextColor(0, 0, 0);
-        doc.text(output_calificacion_amenazas.descriptor, 2, 17.5, {maxWidth: 16});
-
-        doc.setTextColor(blue[0], blue[1], blue[2]);
-        doc.text('Rendimientos', 2, 19.5);
-        doc.setTextColor(0, 0, 0);
-        doc.text(output_calificacion_rendimiento.descriptor, 2, 20, {maxWidth: 16});
-
-        doc.setTextColor(blue[0], blue[1], blue[2]);
-        doc.text('Costos de producción', 2, 22);
-        doc.setTextColor(0, 0, 0);
-        doc.text(output_calificacion_costos.descriptor, 2, 22.5, {maxWidth: 16});
-
-        doc.addPage('letter', 'p')
-        
-        doc.setTextColor(blue[0], blue[1], blue[2]);
-        doc.text('Conocimiento del cultivo', 2, 2);
-
-        
-        doc.setTextColor(0, 0, 0);
-        doc.text(pregunta_1.valor, 2, 3);
-        doc.text(pregunta_1.descriptor, 2, 3.5);
-        
-        
-        doc.setTextColor(0, 0, 0);
-        doc.text(pregunta_2.valor, 2, 4.5);
-        doc.text(pregunta_2.descriptor, 2, 5);
-        
-        
-        doc.setTextColor(0, 0, 0);
-        doc.text(pregunta_3.valor, 2, 6);
-        doc.text(pregunta_3.descriptor, 2, 6.5);
-        
-        
-        doc.setTextColor(0, 0, 0);
-        doc.text(pregunta_4.valor, 2, 7.5);
-        doc.text(pregunta_4.descriptor, 2, 8);
-        
-        doc.setTextColor(0, 0, 0);
-        doc.text(pregunta_5.valor, 2, 9);
-        doc.text(pregunta_5.descriptor, 2, 9.5);
-
-        doc.setTextColor(0, 0, 0);
-        doc.text(pregunta_6.valor, 2, 10.5);
-        doc.text(pregunta_6.descriptor, 2, 11);
-        
-        doc.setTextColor(0, 0, 0);
-        doc.text(pregunta_7.valor, 2, 12);
-        doc.text(pregunta_7.descriptor, 2, 12.5);
-        
-        doc.setTextColor(0, 0, 0);
-        doc.text(pregunta_8.valor, 2, 13.5);
-        doc.text(pregunta_8.descriptor, 2, 14);
-        
-        doc.setTextColor(0, 0, 0);
-        doc.text(pregunta_9.valor, 2, 15);
-        doc.text(pregunta_9.descriptor, 2, 15.5);
-        
-        doc.setTextColor(0, 0, 0);
-        doc.text(pregunta_10.valor, 2, 16.5);
-        doc.text(pregunta_10.descriptor, 2, 17);
-
-        doc.text(output_calificacion_encuesta.descriptor, 2, 18, {maxWidth: 16});
-
-        doc.setTextColor(blue[0], blue[1], blue[2]);
-        doc.text('Conclusiones', 2, 23);
-        doc.setTextColor(0, 0, 0);
-        doc.text(output_calificacion.descriptor, 2, 23.5, {maxWidth: 16});
-
-        doc.text('Cordialmente', 2, 26.5);
-        doc.setFont('Helvetica', 'Bold')
-        doc.text('Equipo Seguros SURA', 2, 27);
-
-        doc.save("Calificación-de-riesgo.pdf");
-
+    const createPDF = () => {
+        pdfMake.createPdf(dd).download();
     }
 
     return (
@@ -277,7 +239,7 @@ export default function Calificacion() {
                         <div className="col s6 score">
                             <div className={scoreClass ? scoreClass + ' score_content' : 'score_content'}>
                                 <h2>Tu puntaje es</h2>
-                                <img src="/images/imagen_puntaje.jpg" alt=""/>
+                                <img src={`/images/puntaje_${output_calificacion.valor}.jpg`} alt=""/>
                                 { entriesResponse && (
                                     <p className={scoreClass ? scoreClass : ''}>{output_calificacion.valor}</p>
                                 )}
@@ -304,9 +266,10 @@ export default function Calificacion() {
                     </div>
                 </div>
 
+                
                 {imgData && (
                     <div className="links">
-                        <button className="waves-effect waves-dark btn blue" onClick={generatePDF}>Descargar PDF</button>
+                        <button className="waves-effect waves-dark btn blue" onClick={createPDF}>Descargar PDF</button>
                         <button className="waves-effect waves-dark btn blue" onClick={() => setIsActive(true)}>Ver Detalles</button>
                     </div>
                 )}
