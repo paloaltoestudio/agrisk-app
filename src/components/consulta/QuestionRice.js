@@ -17,7 +17,7 @@ export default function QuestionRice(props) {
                     <span>
                         <strong>1. ¿El cultivo posee semilla certificada proveniente de una casa comercial?</strong>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_1" className="browser-default" >
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_1" className="validate" >
                         <option value="">Escoje una opción</option>
                         <option value="Sí">Sí</option>
                         <option value="No">No</option>
@@ -28,7 +28,7 @@ export default function QuestionRice(props) {
                     <span>
                         2.¿El riego es suficiente para todo el área cultivada? <br/><br/>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_2" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_2" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Siempre">Siempre</option>
                         <option value="Casi Siempre">Casi Siempre</option>
@@ -43,7 +43,7 @@ export default function QuestionRice(props) {
                     <span>
                        3.¿El plan de fertilización se hace a partir de analisis de suelos?
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_3" className="browser-default" >
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_3" className="validate" >
                         <option value="">Escoje una opción</option>
                         <option value="Sí">Sí</option>
                         <option value="No">No</option>
@@ -54,7 +54,7 @@ export default function QuestionRice(props) {
                     <span>
                        4.¿Cuenta con asistencia técnica? <br/><br/>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_4" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_4" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Sí">Sí</option>
                         <option value="No">No</option>
@@ -62,9 +62,9 @@ export default function QuestionRice(props) {
                 </div>
                 <div className="input-field col s6">
                     <span>
-                       5.¿Qué tipo de siembra utiliza? <br/><br/>
+                       5.¿Qué tipo de siembra utiliza? <br/><br/><br/>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_5" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_5" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Mecanizada">Mecanizada</option>
                     </select>
@@ -73,7 +73,7 @@ export default function QuestionRice(props) {
                     <span>
                        6.¿Tiene disponibilidad de maquinaria garantizada para la cosecha? <br/><br/>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_6" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_6" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Sí">Sí</option>
                     </select>
@@ -82,7 +82,7 @@ export default function QuestionRice(props) {
                     <span>
                        7.¿El lote ha tenido más de un ciclo de siembra? <br/><br/>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_7" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_7" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Sí">Sí</option>
                     </select>
@@ -91,7 +91,7 @@ export default function QuestionRice(props) {
                     <span>
                        8.¿Cuál es la principal fuente de agua de riego? <br/><br/>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_8" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_8" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Distrito de riego">Distrito de riego</option>
                     </select>
@@ -100,7 +100,7 @@ export default function QuestionRice(props) {
                     <span>
                        9.¿Qué tipo de pendiente representa a la mayor parte del cultivo? (Alto>20%, Medio >10%, Bajo el resto) <br/><br/>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_9" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_9" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Alto">Alto</option>
                     </select>

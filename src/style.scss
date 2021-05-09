@@ -5,6 +5,12 @@ body {
 }
 
 
+//General
+.btn {
+    font-size: 12px;
+}
+
+//Login
 .login {
     height: 100vh;
     width: 100%;
@@ -246,10 +252,6 @@ body {
         color: #0068B1;
     }
     
-    .select-wrapper {
-        margin-bottom: 20px;
-    }
-    
     form {
         span {
             color: #888;
@@ -260,6 +262,7 @@ body {
     
     .select-wrapper input.select-dropdown {
         color: #9e9e9e;
+        margin-bottom: 0;
     }
     
      /* label focus color */
@@ -363,10 +366,6 @@ body {
     }
 }
 
-.modal {
-    overflow-y: hidden !important;
-}
-
 .outlined {
     background: none !important;
     border: 1px solid #0068B1;
@@ -406,6 +405,12 @@ body {
                 color: #0068B1;
             }
         }
+    }
+}
+
+.step {
+    .row {
+        margin-bottom: 0;
     }
 }
 
@@ -492,48 +497,50 @@ body {
 .links {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
     margin-bottom: 20px;
 
-    button {
+    button, a {
         margin: 0 10px;
     }
 }
 
-.score_preview {
-    position: absolute;
-    top: -300px;
-    height: 70vh;
-    overflow: auto;
-    background: #fff;
-    padding: 40px 40px;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    z-index: 10000000;
-
-    span.close {
+#previewPDF {
+    .modal-close {
         position: absolute;
         top: 20px;
         right: 20px;
         cursor: pointer;
+        color: #888;
 
         &:hover {
             color: #0068B1;
         }
     }
+}
+
+.score_preview {
+    background: #fff;
+    padding: 40px 40px;
 
     p.date {
         margin-bottom: 20px;
+        font-weight: bold;
     }
     p.intro {
         margin-bottom: 20px;
     }
     p {
-        margin-bottom: 10px;
+        margin-bottom: 0px;
+        margin-top: 0;
+        font-size: 14px;
     }
 
     h3 {
-        margin-top: 20px;
+        margin-top: 30px;
         margin-bottom: 10px;
+        font-size: 14px;
+        color: #0068B1;
     }
 
     .chart {
@@ -578,7 +585,11 @@ body {
 
 .score {
     h2 {
-        margin-bottom: 40px;
+        margin-bottom: 20px;
+    }
+
+    img {
+        max-width: 150px !important;
     }
 
     p {

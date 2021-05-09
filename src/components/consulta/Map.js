@@ -30,9 +30,11 @@ function Map() {
     lng: ''
   })
 
+  console.log(process.env.REACT_APP_GOOGLE_API)
+
   const libraries = ['places'];
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyC7QJNDGuQ94FH1G3kUTD2HDfcigYPkcW4',
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_API,
     libraries
   });
 

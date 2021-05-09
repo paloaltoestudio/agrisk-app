@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import M from 'materialize-css';
 import { SignContext } from '../contexts/SignContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import imageToBase64 from 'image-to-base64/browser';
@@ -8,6 +9,10 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 export default function Calificacion() { 
+
+    useEffect(() => {
+        M.AutoInit();
+    }, [])
 
     const [isActive, setIsActive] = useState(false);
 
@@ -51,115 +56,105 @@ export default function Calificacion() {
     }, [output_calificacion]);
 
     const Preview = ({isActive}) => {
-        console.log(isActive)
-
         return(
-            <motion.div 
-               initial={{ opacity: 0, y: -200 }}
-               animate={{ opacity: 1, y: 160 }} 
-               transition={{ type: 'spring', stiffness: 90 }} 
-               exit={{ opacity: 0, y: -10 }}
-               className={isActive ? 'score_preview active' : 'score_preview'}
-               >
-                   <span className="close" onClick={() => setIsActive(false)}>Cerrar</span>
-
-                    <p className="date"> 
-                        {finalDate}
-                    </p>
+            <div className="score_preview">
+                <p className="date"> 
+                    {finalDate}
+                </p>
     
-                    <p className="intro">En Seguros SURA queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.</p>
+                <p className="intro">En Seguros SURA queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.</p>
     
-                    <h3>Niveles de desarrollo por atributo</h3>
+                <h3>Niveles de desarrollo por atributo</h3>
     
-                    {imgData && (
-                        <img className="chart" width="100%" src={`data:image/jpeg;base64,${imgData}`} />
-                    )}
+                {imgData && (
+                    <img className="chart" width="100%" src={`data:image/jpeg;base64,${imgData}`} />
+                )}
     
-                    <h3>Aptitud</h3>
-                    <p>{output_calificacion_aptitud.descriptor}</p>
+                <h3>Aptitud</h3>
+                <p>{output_calificacion_aptitud.descriptor}</p>
     
-                    <h3>Amenazas</h3>
-                    <p>{output_calificacion_amenazas.descriptor}</p>
+                <h3>Amenazas</h3>
+                <p>{output_calificacion_amenazas.descriptor}</p>
     
-                    <h3>Rendimientos</h3>
-                    <p>{output_calificacion_rendimiento.descriptor}</p>
+                <h3>Rendimientos</h3>
+                <p>{output_calificacion_rendimiento.descriptor}</p>
     
-                    <h3>Costos de producción</h3>
-                    <p>{output_calificacion_costos.descriptor}</p>
+                <h3>Costos de producción</h3>
+                <p>{output_calificacion_costos.descriptor}</p>
     
-                    <h3>Conocimiento del cultivo</h3>
-                    {pregunta_1.descriptor && (
-                        <div className="question">
-                            <p>{pregunta_1.valor}</p>
-                            <p>{pregunta_1.descriptor}</p>
-                        </div>
-                    )}
-                    {pregunta_2.descriptor && (
-                        <div className="question">
-                            <p>{pregunta_2.valor}</p>
-                            <p>{pregunta_2.descriptor}</p>
-                        </div>
-                    )}
-                    {pregunta_3.descriptor && (
-                        <div className="question">
-                            <p>{pregunta_3.valor}</p>
-                            <p>{pregunta_3.descriptor}</p>
-                        </div>
-                    )}
-                    {pregunta_4.descriptor && (
-                        <div className="question">
-                            <p>{pregunta_4.valor}</p>
-                            <p>{pregunta_4.descriptor}</p>
-                        </div>
-                    )}
-                    {pregunta_5.descriptor && (
-                        <div className="question">
-                            <p>{pregunta_5.valor}</p>
-                            <p>{pregunta_5.descriptor}</p>
-                        </div>
-                    )}
-                    {pregunta_6.descriptor && (
-                        <div className="question">
-                            <p>{pregunta_6.valor}</p>
-                            <p>{pregunta_6.descriptor}</p>
-                        </div>
-                    )}
-                    {pregunta_7.descriptor && (
-                        <div className="question">
-                            <p>{pregunta_7.valor}</p>
-                            <p>{pregunta_7.descriptor}</p>
-                        </div>
-                    )}
-                    {pregunta_8.descriptor && (
-                        <div className="question">
-                            <p>{pregunta_8.valor}</p>
-                            <p>{pregunta_8.descriptor}</p>
-                        </div>
-                    )}
-                    {pregunta_9.descriptor && (
-                        <div className="question">
-                            <p>{pregunta_9.valor}</p>
-                            <p>{pregunta_9.descriptor}</p>
-                        </div>
-                    )}
-                    {pregunta_10.descriptor && (
-                        <div className="question">
-                            <p>{pregunta_10.valor}</p>
-                            <p>{pregunta_10.descriptor}</p>
-                        </div>
-                    )}
-                    
-                    <p className="score_text">{output_calificacion_encuesta.descriptor}</p>
-                        
-                    <h3>Conclusiones</h3>
-                    <p>{output_calificacion.descriptor}</p>
-    
-                    <div className="greetings">
-                        <p>Cordialmente</p>
-                        <p><strong>Equipo Seguros SURA</strong></p>
+                <h3>Conocimiento del cultivo</h3>
+                {pregunta_1.descriptor && (
+                    <div className="question">
+                        <p>{pregunta_1.valor}</p>
+                        <p>{pregunta_1.descriptor}</p>
                     </div>
+                )}
+                {pregunta_2.descriptor && (
+                    <div className="question">
+                        <p>{pregunta_2.valor}</p>
+                        <p>{pregunta_2.descriptor}</p>
+                    </div>
+                )}
+                {pregunta_3.descriptor && (
+                    <div className="question">
+                        <p>{pregunta_3.valor}</p>
+                        <p>{pregunta_3.descriptor}</p>
+                    </div>
+                )}
+                {pregunta_4.descriptor && (
+                    <div className="question">
+                        <p>{pregunta_4.valor}</p>
+                        <p>{pregunta_4.descriptor}</p>
+                    </div>
+                )}
+                {pregunta_5.descriptor && (
+                    <div className="question">
+                        <p>{pregunta_5.valor}</p>
+                        <p>{pregunta_5.descriptor}</p>
+                    </div>
+                )}
+                {pregunta_6.descriptor && (
+                    <div className="question">
+                        <p>{pregunta_6.valor}</p>
+                        <p>{pregunta_6.descriptor}</p>
+                    </div>
+                )}
+                {pregunta_7.descriptor && (
+                    <div className="question">
+                        <p>{pregunta_7.valor}</p>
+                        <p>{pregunta_7.descriptor}</p>
+                    </div>
+                )}
+                {pregunta_8.descriptor && (
+                    <div className="question">
+                        <p>{pregunta_8.valor}</p>
+                        <p>{pregunta_8.descriptor}</p>
+                    </div>
+                )}
+                {pregunta_9.descriptor && (
+                    <div className="question">
+                        <p>{pregunta_9.valor}</p>
+                        <p>{pregunta_9.descriptor}</p>
+                    </div>
+                )}
+                {pregunta_10.descriptor && (
+                    <div className="question">
+                        <p>{pregunta_10.valor}</p>
+                        <p>{pregunta_10.descriptor}</p>
+                    </div>
+                )}
+                
+                <p className="score_text">{output_calificacion_encuesta.descriptor}</p>
+                    
+                <h3>Conclusiones</h3>
+                <p>{output_calificacion.descriptor}</p>
     
-                    </motion.div>
+                <div className="greetings">
+                    <p>Cordialmente</p>
+                    <p><strong>Equipo Seguros SURA</strong></p>
+                </div>
+    
+            </div>
         )
     }
 
@@ -182,7 +177,6 @@ export default function Calificacion() {
             try {
                 const imgConvert = await imageToBase64(footerImg);
                 setFooter(imgConvert);
-    
             } catch (error){
                 console.log(error)
             }
@@ -193,7 +187,7 @@ export default function Calificacion() {
 
     const dd = {
         pageSize: 'LETTER',
-        pageMargins: [ 30, 0, 30, 40 ],
+        pageMargins: [ 30, 180, 30, 40 ],
         header: {
             image: `data:image/jpeg;base64,${header}`,
             width: 600
@@ -202,7 +196,7 @@ export default function Calificacion() {
            
             {
                 text: finalDate,
-                margin: [ 0, 180, 0, 10 ]
+                margin: [ 0, 0, 0, 10 ]
             },
             {
                 text: 'En Seguros SURA queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.',
@@ -214,26 +208,182 @@ export default function Calificacion() {
                 margin: [ 0, 0, 0, 20 ]
             },
             {
-                image: `data:image/jpeg;base64,${imgData}`,
-                width: 400
+                image: 'chartImg',
+                width: 400,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: 'Aptitud',
+                color: '#0068B1',
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: output_calificacion_aptitud.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: 'Amenazas',
+                color: '#0068B1',
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: output_calificacion_amenazas.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: 'Rendimientos',
+                color: '#0068B1',
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: output_calificacion_rendimiento.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: 'Costos de producción',
+                color: '#0068B1',
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: output_calificacion_costos.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: 'Conocimiento del cultivo',
+                color: '#0068B1',
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: pregunta_1.valor,
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: pregunta_1.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: pregunta_2.valor,
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: pregunta_2.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: pregunta_3.valor,
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: pregunta_3.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: pregunta_4.valor,
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: pregunta_4.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: pregunta_5.valor,
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: pregunta_5.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: pregunta_6.valor,
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: pregunta_6.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: pregunta_7.valor,
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: pregunta_7.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: pregunta_8.valor,
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: pregunta_8.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: pregunta_9.valor,
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: pregunta_9.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: pregunta_10.valor,
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: pregunta_10.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: output_calificacion_encuesta.descriptor,
+                margin: [ 0, 0, 0, 20 ],
+                pageBreak: "before"
+            },
+            {
+                text: 'Conclusiones',
+                color: '#0068B1',
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: output_calificacion.descriptor,
+                margin: [ 0, 0, 0, 20 ]
+            },
+            {
+                text: 'Cordialmente',
+                margin: [ 0, 0, 0, 0 ]
+            },
+            {
+                text: 'Equipo Seguros SURA',
+                margin: [ 0, 0, 0, 0 ]
             }
         ],
         footer: {
             image: `data:image/jpeg;base64,${footer}`,
             width: 600
+        },
+        images: {
+            chartImg: `data:image/jpeg;base64,${imgData}`
         }
     }
 
-    const createPDF = () => {
+    const createPDF = (e) => {
+        e.preventDefault();
         pdfMake.createPdf(dd).download();
     }
 
     return (
 
         <>
+        <motion.div 
+             initial={{ opacity: 0, x: 200 }}
+             animate={{ opacity: 1, x: 0 }} 
+             transition={{ type: 'spring', stiffness: 90 }}
+             className="card pasos z-depth-3">
+              <div className="card-content">
+
+                            
         <div className="step">
             <div className="step-content score_wrapper">
-                <p className="title">El cultivo presenta el siguiente perfil de riesgo</p>
+               {/*  <p className="title">El cultivo presenta el siguiente perfil de riesgo</p> */}
                 <div className="">
                     <div className="row">
                         <div className="col s6 score">
@@ -269,18 +419,27 @@ export default function Calificacion() {
                 
                 {imgData && (
                     <div className="links">
-                        <button className="waves-effect waves-dark btn blue" onClick={createPDF}>Descargar PDF</button>
-                        <button className="waves-effect waves-dark btn blue" onClick={() => setIsActive(true)}>Ver Detalles</button>
+                        <a href="" className="waves-effect waves-dark btn blue" onClick={createPDF}>Descargar PDF</a>
+                        <a class="btn blue modal-trigger" href="#previewPDF">Ver Detalles</a>
                     </div>
                 )}
             </div>
         </div>
+        </div>
+        </motion.div>
         
             <AnimatePresence>
                 {isActive && (
                     <Preview isActive={isActive} />
                 )}
             </AnimatePresence>
+
+            <div id="previewPDF" class="modal">
+                <div class="modal-content">
+                     <a href="#!" class="modal-close">Cerrar</a>
+                    <Preview />
+                </div>
+            </div>
         </>
     )
 }
