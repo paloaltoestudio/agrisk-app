@@ -40,7 +40,6 @@ function Map({loc}) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API,
     libraries
   });
-  
 
   const options = {
     disableDefaultUI: true,
