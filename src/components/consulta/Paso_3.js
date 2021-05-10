@@ -7,6 +7,13 @@ export default function Paso_3(props) {
 
     const [loader, setLoader] = useState(false)
 
+    const [loc, setLoc] = useState({
+        pais: '',
+        departamento: '',
+        municipio: '',
+        in_id_vereda: ''
+    })
+
     const { token, sign, session, entriesResponse, createSession, sendUpdate, getEntries, isReady } = useContext(SignContext);
 
     const handleSubmit = e => {
@@ -23,7 +30,17 @@ export default function Paso_3(props) {
         } 
     }, [isReady])
 
-    
+    const handleChange = (e) => {
+        console.log(e.target.options[e.target.selectedIndex].text)
+        const veredaSelected = e.target.options[e.target.selectedIndex].text;
+
+        setLoc({
+            ...loc, 
+            [e.target.id]: e.target.id == 'in_id_vereda' ? veredaSelected : e.target.value
+        });
+        console.log(loc)
+        props.entries.handleEntries(e);
+    }
     
     return (
 
@@ -35,7 +52,6 @@ export default function Paso_3(props) {
                 <h2>Consultando Calificación</h2>
                 <img src="/images/loader.gif" />
             </div> 
-        
         }
 
 
@@ -51,14 +67,14 @@ export default function Paso_3(props) {
                    <div className="row">
                      
                       <div className="input-field col s4">
-                          <select onChange={e => props.entries.handleEntries(e)} id="pais" className="validate" required>
+                          <select onChange={e => handleChange(e)} id="pais" className="validate" required>
                               <option value="">Escoje una opción</option>
                               <option value="Colombia">Colombia</option>
                           </select>
                           <label>País*</label>
                       </div>
                       <div className="input-field col s4">
-                          <select onChange={e => props.entries.handleEntries(e)} id="departamento" className="validate" required>
+                          <select onChange={e => handleChange(e)} id="departamento" className="validate" required>
                               <option value="" >Escoje una opción</option>
                               <option value="Antioquia">Antioquia</option>
                               <option value="Caldas">Caldas</option>
@@ -67,7 +83,7 @@ export default function Paso_3(props) {
                           <label>Departamento*</label>
                       </div>
                       <div className="input-field col s4">
-                          <select onChange={e => props.entries.handleEntries(e)} id="municipio" className="validate" required>
+                          <select onChange={e => handleChange(e)} id="municipio" className="validate" required>
                               <option value="">Escoje una opción</option>
                               <option value="Belalcázar">Belalcázar</option>
                               <option value="Carepa">Carepa</option>
@@ -76,7 +92,7 @@ export default function Paso_3(props) {
                           <label>Municipio*</label>
                       </div>
                       <div className="input-field col s4">
-                          <select onChange={e => props.entries.handleEntries(e)} id="in_id_vereda" className="validate" required>
+                          <select onChange={e => handleChange(e)} id="in_id_vereda" className="validate" required>
                               <option value="">Escoje una opción</option>
                               <option value="05147008">Carepita</option>
                               <option value="17088024">La Turquesa</option>
@@ -90,7 +106,7 @@ export default function Paso_3(props) {
                       </div>
                    </div>
 
-                   <Map />
+                   <Map loc={loc} />
 
                    <br/>
                   

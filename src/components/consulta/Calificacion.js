@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import imageToBase64 from 'image-to-base64/browser';
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
+import { v4 as uuidv4 } from 'uuid';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -367,7 +368,7 @@ export default function Calificacion() {
 
     const createPDF = (e) => {
         e.preventDefault();
-        pdfMake.createPdf(dd).download();
+        pdfMake.createPdf(dd).download(`consulta-de-puntaje_${uuidv4()}.pdf`);
     }
 
     return (

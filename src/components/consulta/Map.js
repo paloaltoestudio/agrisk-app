@@ -1,5 +1,6 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import M from 'materialize-css';
 
 import usePlacesAutocomplete, {
   getGeocode,
@@ -18,19 +19,21 @@ import "@reach/combobox/styles.css";
 
 
 
-function Map() {
+function Map({loc}) {
   const [mapRef, setMapRef] = useState(null);
   const [center, setCenter] = useState({ lat: 6.520598, lng: -75.285420 });
   const [zoom, setZoom] = useState(12);
 
   const addressRef = useRef();
+
+  useEffect(() => {
+    M.AutoInit();
+}, []) 
   
   const [coord, setCoord] = useState({
     lat: '', 
     lng: ''
   })
-
-  console.log(process.env.REACT_APP_GOOGLE_API)
 
   const libraries = ['places'];
   const { isLoaded, loadError } = useLoadScript({
@@ -43,19 +46,40 @@ function Map() {
     zoomControl: true
   }
 
+  const getCoord2 = (p) => {
+    if(p.departamento != '' && p.municipio != '' && p.pais != '' && p.in_id_vereda != ''){
+      const address = p.pais + ' ' + p.departamento + ' ' + p.municipio + ' ' + p.in_id_vereda;
+
+      getGeocode({ address })
+        .then((results) => getLatLng(results[0]))
+        .then(({ lat, lng }) => {
+          console.log("📍 Coordinates: ", { lat, lng });
+          setCenter({lat, lng});
+          setZoom(15)
+        })
+        .catch((error) => {
+          console.log("😱 Error: ", error);
+        });
+    }
+  }
+
+  useEffect(() => {
+    getCoord2(loc);
+  }, [loc])
+
   const getCoord = (e) => {
     e.preventDefault();
 
-    getGeocode({ address: addressRef.current.value })
-      .then((results) => getLatLng(results[0]))
-      .then(({ lat, lng }) => {
-        console.log("📍 Coordinates: ", { lat, lng });
-        setCenter({lat, lng});
-        setZoom(15)
-      })
-      .catch((error) => {
-        console.log("😱 Error: ", error);
-      });
+      getGeocode({ address: addressRef.current.value })
+        .then((results) => getLatLng(results[0]))
+        .then(({ lat, lng }) => {
+          console.log("📍 Coordinates: ", { lat, lng });
+          setCenter({lat, lng});
+          setZoom(15)
+        })
+        .catch((error) => {
+          console.log("😱 Error: ", error);
+        });
   }
 
   if(loadError) return <div className="error">loading error</div>;
@@ -65,7 +89,7 @@ function Map() {
       <div className="map_wrapper">
       <form className="map_search">
         <div className="form_group">
-          <input ref={addressRef} type="text"/>
+          <input ref={addressRef} type="text" />
           <button className="waves-effect waves-dark btn blue" onClick={e => getCoord(e)}>Busca</button>
         </div>
       </form>
