@@ -63,7 +63,8 @@ export default function Calificacion() {
                     {finalDate}
                 </p>
     
-                <p className="intro">En Seguros SURA queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.</p>
+                    <p className="intro">En Seguros Insure inc queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.</p>
+
     
                 <h3>Niveles de desarrollo por atributo</h3>
     
@@ -150,10 +151,11 @@ export default function Calificacion() {
                 <h3>Conclusiones</h3>
                 <p>{output_calificacion.descriptor}</p>
     
-                <div className="greetings">
-                    <p>Cordialmente</p>
-                    <p><strong>Equipo Seguros SURA</strong></p>
-                </div>
+                    <div className="greetings">
+                        <p>Cordialmente</p>
+                        <p><strong>Equipo Seguros Insure inc</strong></p>
+                    </div>
+
     
             </div>
         )
@@ -162,7 +164,7 @@ export default function Calificacion() {
     const [header, setHeader] = useState();
     const [footer, setFooter] = useState();
     useEffect(() => {
-        const headerImg = './images/suraHeader.png';
+        const headerImg = './images/header.png';
         const headerBase64 = async () => {
             try {
                 const imgConvert = await imageToBase64(headerImg);
@@ -173,7 +175,7 @@ export default function Calificacion() {
             }
         }
 
-        const footerImg = './images/suraFooter.png';
+        const footerImg = './images/footer.png';
         const footerBase64 = async () => {
             try {
                 const imgConvert = await imageToBase64(footerImg);
@@ -200,7 +202,7 @@ export default function Calificacion() {
                 margin: [ 0, 0, 0, 10 ]
             },
             {
-                text: 'En Seguros SURA queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.',
+                text: 'En Seguros Insure inc queremos compartir el siguiente análisis sobre los principales factores de gestión de riesgo asociados a tu cultivo y la región donde se encuentra.',
                 margin: [ 0, 0, 0, 20 ]
             },
             {
@@ -353,7 +355,7 @@ export default function Calificacion() {
                 margin: [ 0, 0, 0, 0 ]
             },
             {
-                text: 'Equipo Seguros SURA',
+                text: 'Equipo Seguros Insurance',
                 margin: [ 0, 0, 0, 0 ]
             }
         ],
