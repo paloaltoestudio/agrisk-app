@@ -25,7 +25,7 @@ const ConsultarPuntaje = () => {
 
     useEffect(() => {
         M.AutoInit();
-    }, [steps])
+    }, [steps]);
 
     
 console.log(steps)
@@ -69,53 +69,45 @@ console.log(steps)
             </ul>
 
            
-                        { steps == '1' && (
-                            <motion.div 
-                            initial={{ opacity: 0, x: 200 }}
-                            animate={{ opacity: 1, x: 0 }} 
-                            transition={{ type: 'spring', stiffness: 90 }}
-                            className="card pasos z-depth-3">
-                             <div className="card-content">
-                                <Paso_1 stepState={{steps, changeStep}} entries={{handleEntries}} />
-                            </div>
-                             </motion.div>
-                        )}
+              { steps == '1' && (
+                  <motion.div 
+                  initial={{ opacity: 0, x: 200 }}
+                  animate={{ opacity: 1, x: 0 }} 
+                  transition={{ type: 'spring', stiffness: 90 }}
+                  className="card pasos z-depth-3">
+                   <div className="card-content">
+                      <Paso_1 stepState={{steps, changeStep}} entries={{handleEntries}} />
+                  </div>
+                   </motion.div>
+              )}
 
-                        { steps == '2' && (
-                             <motion.div 
-                             initial={{ opacity: 0, x: 200 }}
-                             animate={{ opacity: 1, x: 0 }} 
-                             transition={{ type: 'spring', stiffness: 90 }}
-                             className="card pasos z-depth-3">
-                              <div className="card-content">
-                            <Paso_2 stepState={{steps, changeStep}} entries={{entries, handleEntries}} />
-                            </div>
-                             </motion.div>
-                        )}
+              { steps == '2' && (
+                   <motion.div 
+                   initial={{ opacity: 0, x: 200 }}
+                   animate={{ opacity: 1, x: 0 }} 
+                   transition={{ type: 'spring', stiffness: 90 }}
+                   className="card pasos z-depth-3">
+                    <div className="card-content">
+                  <Paso_2 stepState={{steps, changeStep}} entries={{entries, handleEntries}} />
+                  </div>
+                   </motion.div>
+              )}
 
-                        { steps == '3' && (
-                            <motion.div 
-                            initial={{ opacity: 0, x: 200 }}
-                            animate={{ opacity: 1, x: 0 }} 
-                            transition={{ type: 'spring', stiffness: 90 }}
-                            className="card pasos z-depth-3">
-                             <div className="card-content">
-                            <Paso_3 stepState={{steps, changeStep}} entries={{entries, handleEntries}} />
-                            </div>
-                             </motion.div>
-                        )}
+              { steps == '3' && (
+                  <motion.div 
+                  initial={{ opacity: 0, x: 200 }}
+                  animate={{ opacity: 1, x: 0 }} 
+                  transition={{ type: 'spring', stiffness: 90 }}
+                  className="card pasos z-depth-3">
+                   <div className="card-content">
+                  <Paso_3 stepState={{steps, changeStep}} entries={{entries, handleEntries}} />
+                  </div>
+                   </motion.div>
+              )}
 
-                        { steps == '4' && (
-                             <motion.div 
-                             initial={{ opacity: 0, x: 200 }}
-                             animate={{ opacity: 1, x: 0 }} 
-                             transition={{ type: 'spring', stiffness: 90 }}
-                             className="card pasos z-depth-3">
-                              <div className="card-content">
-                            <Calificacion />
-                            </div>
-                             </motion.div>
-                        )}
+              { steps == '4' && (
+                  <Calificacion />
+              )}
                  
         </div>
     )

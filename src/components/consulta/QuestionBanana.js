@@ -16,7 +16,7 @@ export default function QuestionRice(props) {
                     <span>
                         <strong>1. ¿Tiene una densidad de siembra superior a 1500 plantas por hectárea?</strong>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_1" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_1" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Sí">Sí</option>
                         <option value="No">No</option>
@@ -27,7 +27,7 @@ export default function QuestionRice(props) {
                     <span>
                         2.¿Qué tipo de amarre utiliza? <br/><br/>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_2" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_2" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Antena">Antena</option>
                     </select>
@@ -40,7 +40,7 @@ export default function QuestionRice(props) {
                     <span>
                        3.¿Con qué frecuencia realiza mantenimientos a los canales de drenaje en caso de tenerlos (responda nunca sino los tiene)?
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_3" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_3" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Siempre">Siempre</option>
                         <option value="Casi Siempre">Casi Siempre</option>
@@ -52,7 +52,7 @@ export default function QuestionRice(props) {
                     <span>
                        4.¿El riego es suficiente para todo el área cultivada? <br/><br/><br/>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_4" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_4" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Siempre">Siempre</option>
                         <option value="Casi Siempre">Casi Siempre</option>
@@ -67,7 +67,7 @@ export default function QuestionRice(props) {
                     <span>
                        5.¿Cuál es la principal fuente de agua de riego? <br/><br/>
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_5" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_5" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Reservorio">Reservorio</option>
                     </select>
@@ -76,7 +76,7 @@ export default function QuestionRice(props) {
                     <span>
                        6.¿El plan de fertilización se hace a partir de analisis de suelos?
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_6" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_6" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Sí">Sí</option>
                     </select>
@@ -85,7 +85,7 @@ export default function QuestionRice(props) {
                     <span>
                        7.¿El cultivo se encuentra en la Costa Atlántica?
                  </span>
-                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_7" className="browser-default" required>
+                    <select onChange={e => props.entries.handleEntries(e)} id="respuesta_7" className="validate" required>
                         <option value="">Escoje una opción</option>
                         <option value="Sí">Sí</option>
                     </select>
